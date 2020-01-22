@@ -33,9 +33,9 @@ public class BallController : MonoBehaviour
         power = 100f;
         turnSpeed = 0.5f;
 
-        maxPower = 2000f;
+        maxPower = 1500f;
         minPower = 10f;
-        powerInc = 500f;
+        powerInc = 750f;
         powerDir = 1;
 
         numOfShots = 0;
@@ -166,7 +166,7 @@ public class BallController : MonoBehaviour
 
     private void SetArrowScale()
     {
-        float arrowZScale = power / 200f;
+        float arrowZScale = power / 300f;
 
         arrow.GetComponent<Transform>().localScale = new Vector3
             (arrow.GetComponent<Transform>().localScale.x,
@@ -199,5 +199,10 @@ public class BallController : MonoBehaviour
         transform.position = lastPosition;
         EndShot();
         StartCoroutine(holeController.DisplayFoul());
+    }
+
+    public bool BallIsHit()
+    {
+        return ballHit;
     }
 }
