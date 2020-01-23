@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScorecardTable : MonoBehaviour
 {
@@ -53,9 +54,11 @@ public class ScorecardTable : MonoBehaviour
         entryTransformTotal.gameObject.SetActive(true);
         entryTransformTotal.Find("Entry Background").gameObject.SetActive(true);
         entryTransformTotal.Find("Entry Background").gameObject.GetComponent<Image>().color = new Color(0.82f, 0.82f, 0.82f);
+    }
 
-        //RectTransform rt = this.transform.Find("Background").gameObject.GetComponent<RectTransform>();
-        //rt.sizeDelta = new Vector2(rt.rect.width, entryRectTransformTotal.rect.yMax);
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

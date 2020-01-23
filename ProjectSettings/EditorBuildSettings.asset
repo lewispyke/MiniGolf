@@ -8,15 +8,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 96baea93ddd3aac4f98ecb3b329cba20
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/ad8b2a51c6b985f429deaae983fc8a24
+    guid: ad8b2a51c6b985f429deaae983fc8a24
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/7beead87eed0c79488aef64d9fb2eff9
+    guid: 7beead87eed0c79488aef64d9fb2eff9
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/b48a5fe3a766f9340ad451c2aa2cd12c
+    guid: b48a5fe3a766f9340ad451c2aa2cd12c
   - enabled: 1
     path: Assets/Scenes/Hole1.unity
-    guid: ad8b2a51c6b985f429deaae983fc8a24
+    guid: 800c3e873937cc241b68f61375f89e6b
   - enabled: 1
     path: Assets/Scenes/Hole2.unity
-    guid: 7beead87eed0c79488aef64d9fb2eff9
+    guid: a7387822e2f2ba9498d2d718d4dae4b5
   - enabled: 1
     path: Assets/Scenes/Hole3.unity
-    guid: b48a5fe3a766f9340ad451c2aa2cd12c
+    guid: 965d361fb5a8a4c448b3322307348ef8
   - enabled: 1
     path: Assets/Scenes/Scorecard.unity
     guid: 1db5be8271916b74dac6e88020be7128

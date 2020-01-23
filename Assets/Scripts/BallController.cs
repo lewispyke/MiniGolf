@@ -50,6 +50,11 @@ public class BallController : MonoBehaviour
     {
         if (!holeController.InPreviewMode())
         {
+            if (Input.GetKeyDown("space"))
+            {
+                Swing();
+            }
+
             if (!ballHit)
             {
                 if (swingStarted)
@@ -69,25 +74,25 @@ public class BallController : MonoBehaviour
                 }
                 else
                 {
-                    if (Input.GetKey("a"))
+                    if (Input.GetKey("a") || Input.GetKey("left"))
                     {
                         transform.Rotate(0, -turnSpeed, 0);
                     }
 
-                    if (Input.GetKey("d"))
+                    if (Input.GetKey("d") || Input.GetKey("right"))
                     {
                         transform.Rotate(0, turnSpeed, 0);
                     }
 
-                    if (Input.GetKey("w"))
-                    {
-                        transform.Rotate(-turnSpeed, 0, 0);
-                    }
+                    //if (Input.GetKey("w"))
+                    //{
+                    //    transform.Rotate(-turnSpeed, 0, 0);
+                    //}
 
-                    if (Input.GetKey("s"))
-                    {
-                        transform.Rotate(turnSpeed, 0, 0);
-                    }
+                    //if (Input.GetKey("s"))
+                    //{
+                    //    transform.Rotate(turnSpeed, 0, 0);
+                    //}
                 }
             }
             else
@@ -101,6 +106,27 @@ public class BallController : MonoBehaviour
     }
 
     private void OnMouseDown()
+    {
+        Swing();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        EndShot();
+        arrow.GetComponent<Renderer>().enabled = false;
+        holeController.BallSank();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Out Of Bound"))
+        {
+            FoulShot();
+        }
+    }
+
+
+    private void Swing()
     {
         if (!ballHit)
         {
@@ -118,21 +144,6 @@ public class BallController : MonoBehaviour
             }
 
             swingStarted = !swingStarted;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        EndShot();
-        arrow.GetComponent<Renderer>().enabled = false;
-        holeController.BallSank();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Out Of Bound"))
-        {
-            FoulShot();
         }
     }
 
@@ -173,9 +184,10 @@ public class BallController : MonoBehaviour
             arrow.GetComponent<Transform>().localScale.y,
             arrowZScale);
 
+        Color orange = new Color(1f, 0.27f, 0f);
 
         arrow.GetComponent<Renderer>().material.SetColor("_Color", 
-            new Color(1f, 1f - (power / maxPower), 1f - (power / maxPower)));
+            Color.Lerp(Color.white, orange, power / maxPower));
     }
 
     private void EndShot()
