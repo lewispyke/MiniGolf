@@ -30,7 +30,7 @@ public class HoleController : MonoBehaviour
     private int numOfShots;
 
     public Camera mainCamera;
-    public ParticleSystem particleSystem;
+    public ParticleSystem ballSankEffect;
 
     // UI Elements:
     public TextMeshProUGUI shotText;
@@ -47,7 +47,11 @@ public class HoleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scorecard.Add(new ScorecardEntry(holeNumber, 2, 0));
+        if (GameObject.Find("Hole Data"))
+        {
+            int par = GameObject.Find("Hole Data").GetComponent<HoleData>().Par();
+            scorecard.Add(new ScorecardEntry(holeNumber, par, 0));
+        }
 
         if (result)
             result.SetActive(false);
@@ -61,13 +65,17 @@ public class HoleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Only check this until we finish with the preview
-        if (mainCamera.GetComponent<Animator>())
+        if (mainCamera)
         {
-            if (!mainCamera.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Hole1Preview"))
+            // Only check this until we finish with the preview
+            if (mainCamera.GetComponent<Animator>())
             {
-                InPreview = false;
-                mainCamera.GetComponent<Animator>().enabled = false;
+                if (!mainCamera.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(
+                    GameObject.Find("Hole Data").GetComponent<HoleData>().AnimationName()))
+                {
+                    InPreview = false;
+                    mainCamera.GetComponent<Animator>().enabled = false;
+                }
             }
         }
     }
@@ -85,7 +93,7 @@ public class HoleController : MonoBehaviour
 
     private void SetResultText()
     {
-        resultText.text = DetermineResultString(numOfShots, 2);
+        resultText.text = DetermineResultString(numOfShots, scorecard[holeNumber].Par);
     }
 
     private string DetermineResultString(int shots, int par)
@@ -152,7 +160,7 @@ public class HoleController : MonoBehaviour
 
     public void BallSank()
     {
-        particleSystem.Play();
+        ballSankEffect.Play();
         SetResultText();
         result.SetActive(true);
         scorecard[holeNumber].Shots = numOfShots;
